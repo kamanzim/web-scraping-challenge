@@ -5,6 +5,7 @@ import requests
 from splinter import Browser
 from selenium import webdriver
 import pandas as pd
+from webdriver_manager.chrome import ChromeDriverManager
 
 def init_browser():
     executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -40,13 +41,13 @@ def scrape():
 
     # Creating BeautifulSoup object; parse with 'html.parser'
     space_image_url = browser.html
-    soup = BeautifulSoup(space_image_url, 'html.parser')
+    soup = bs(space_image_url, 'html.parser')
 
     # Found and printed all images
     images = soup.findAll('img')
     img = images[1]
     image_url = img.attrs['src']
-    featured_image_url = f"https://spaceimages-mars.com/{img_url}"
+    featured_image_url = f"https://spaceimages-mars.com/{image_url}"
     
     # Add the featured image url to the dictionary
     mars_data["featured_image_url"] = featured_image_url
@@ -73,7 +74,7 @@ def scrape():
     browser.visit(url_hemisphere)
 
     mars_hemisphere_url = browser.html
-    soup = BeautifulSoup(mars_hemisphere_url, 'html.parser')
+    soup = bs(mars_hemisphere_url, 'html.parser')
 
     hemisphere_titles = soup.find_all('h3')
     hemisphere_titles_1 = hemisphere_titles[0].get_text()
@@ -83,7 +84,7 @@ def scrape():
 
     hemisphere_1 = 'https://marshemispheres.com/cerberus.html'
     response1 = requests.get(hemisphere_1)
-    soup = BeautifulSoup(response1.text, 'html.parser')
+    soup = bs(response1.text, 'html.parser')
 
     hemisphere_images_1 = soup.findAll('img')
 
@@ -93,7 +94,7 @@ def scrape():
 
     hemisphere_2 = 'https://marshemispheres.com/schiaparelli.html'
     response2 = requests.get(hemisphere_2)
-    soup = BeautifulSoup(response2.text, 'html.parser')
+    soup = bs(response2.text, 'html.parser')
 
     hemisphere_images_2 = soup.findAll('img')
 
@@ -103,7 +104,7 @@ def scrape():
 
     hemisphere_3 = 'https://marshemispheres.com/syrtis.html'
     response3 = requests.get(hemisphere_3)
-    soup = BeautifulSoup(response3.text, 'html.parser')
+    soup = bs(response3.text, 'html.parser')
 
     hemisphere_images_3 = soup.findAll('img')
 
@@ -113,7 +114,7 @@ def scrape():
 
     hemisphere_4 = 'https://marshemispheres.com/valles.html'
     response4 = requests.get(hemisphere_4)
-    soup = BeautifulSoup(response4.text, 'html.parser')
+    soup = bs(response4.text, 'html.parser')
 
     hemisphere_images_4 = soup.findAll('img')
 
